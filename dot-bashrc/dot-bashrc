@@ -13,3 +13,8 @@ PS1='[\u@\h \W]\$ '
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"
+
+# Run uwsm to manage Hyprland
+if uwsm check may-start; then
+	exec uwsm start hyprland.desktop
+fi
