@@ -1,13 +1,13 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: Iosevka Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
+    background-color: #161616;
+    border-bottom: 1px;
+    color: #f2f4f8;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -114,12 +114,9 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
 }
 
 #battery.charging, #battery.plugged {
@@ -169,16 +166,12 @@ label:focus {
 }
 
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
 }
 
 #memory {
-    background-color: #9b59b6;
 }
 
 #disk {
-    background-color: #964B00;
 }
 
 #backlight {
@@ -186,7 +179,6 @@ label:focus {
 }
 
 #network {
-    background-color: #2980b9;
 }
 
 #network.disconnected {
@@ -227,7 +219,6 @@ label:focus {
 }
 
 #temperature {
-    background-color: #f0932b;
 }
 
 #temperature.critical {
