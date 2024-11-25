@@ -10,25 +10,25 @@
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.cmp',
-  require 'kickstart.plugins.conform',
-  require 'kickstart.plugins.gitsigns',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.lsp-config',
-  require 'kickstart.plugins.mini',
-  require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.telescope',
-  require 'kickstart.plugins.todo-comments',
-  require 'kickstart.plugins.treesitter',
-  require 'kickstart.plugins.which-key',
+  require 'plugins.autopairs',
+  require 'plugins.cmp',
+  require 'plugins.conform',
+  require 'plugins.gitsigns',
+  require 'plugins.indent_line',
+  require 'plugins.lint',
+  require 'plugins.lsp-config',
+  require 'plugins.mini',
+  require 'plugins.neo-tree',
+  require 'plugins.telescope',
+  require 'plugins.todo-comments',
+  require 'plugins.treesitter',
+  require 'plugins.which-key',
   require 'plugins.competitest',
   require 'plugins.debuggers.init',
   require 'plugins.vimtex',
 
   -- COLORSCHEMES (only load 1 at a time)
-  --require 'kickstart.plugins.tokyonight',
+  --require 'plugins.tokyonight',
   require 'plugins.oxocarbon',
 }, {
   ui = {
