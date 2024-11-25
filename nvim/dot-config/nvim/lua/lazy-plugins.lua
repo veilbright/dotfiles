@@ -23,9 +23,7 @@ require('lazy').setup({
   require 'plugins.todo-comments',
   require 'plugins.treesitter',
   require 'plugins.which-key',
-  require 'plugins.competitest',
   require 'plugins.debuggers.init',
-  require 'plugins.vimtex',
 
   -- COLORSCHEMES (only load 1 at a time)
   --require 'plugins.tokyonight',
