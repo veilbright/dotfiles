@@ -12,9 +12,9 @@
     "modules-center": [
     ],
     "modules-right": [
-        "cpu",
-        "memory",
-        "temperature",
+        //"cpu",
+        //"memory",
+        //"temperature",
         "network",
         "battery",
         "clock"
@@ -24,17 +24,7 @@
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "{name}: {icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
+        "format": "{name}"
     },
     "keyboard-state": {
         "numlock": true,
@@ -100,8 +90,8 @@
     "temperature": {
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
+        "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", "", "", ""]
     },
@@ -138,12 +128,12 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ",
+        "format-wifi": "",
         "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format": "{essid} ({ifname}): {gwaddr}",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-disconnected": "⚠",
+        "format-alt": "{essid} "
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
