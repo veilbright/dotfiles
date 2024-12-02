@@ -10,6 +10,7 @@ alias grep='grep --color=auto'
 alias stow='stow --dotfiles -v'
 
 PS1='[\u@\h \W]\$ '
+EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"

@@ -25,7 +25,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background: #525252;
+    background: #393939;
 }
 
 #clock,
@@ -45,8 +45,12 @@ window#waybar {
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
-    padding: 0 10px;
+    padding: 0 8px;
     color: #ffffff;
+}
+
+#netowrk, #battery {
+    padding-right: 12px;
 }
 
 #window,
@@ -70,8 +74,12 @@ window#waybar {
 
 @keyframes blink {
     to {
-        color: #000000;
+        color: #161616;
     }
+}
+
+#battery.warning:not(.charging) {
+    color: #ee5396;
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
@@ -84,8 +92,14 @@ window#waybar {
     animation-direction: alternate;
 }
 
+#battery.danger:not(.charging) {
+    background: #ee5396;
+    color: #161616
+}
+
+
 label:focus {
-    background-color: #000000;
+    background-color: #161616;
 }
 
 #network.disconnected {
