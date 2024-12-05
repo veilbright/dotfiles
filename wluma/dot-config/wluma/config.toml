@@ -1,6 +1,6 @@
 [als.iio]
 path = "/sys/bus/iio/devices"
-thresholds = { 0 = "night", 20 = "dark", 80 = "dim", 250 = "normal", 500 = "bright", 800 = "outdoors" }
+thresholds = { 0 = "night", 10 = "dark", 20 = "dim", 250 = "normal", 500 = "bright", 800 = "outdoors" }
 
 # [als.webcam]
 # video = 0

@@ -5,16 +5,19 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='eza --git'
 alias grep='grep --color=auto'
 alias diff="diff --color=auto"
 alias stow='stow --dotfiles -v'
+alias vim='nvim'
 
 PS1='[\u@\h \W]\$ '
 EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"
+
+eval "$(wpctl set-volume @DEFAULT_AUDIO_SINK@ 0)"
 
 # Run uwsm to manage Hyprland
 if uwsm check may-start; then
