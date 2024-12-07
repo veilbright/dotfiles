@@ -4,6 +4,7 @@ vim.opt.relativenumber = true
 
 -- visual
 vim.opt.showmode = false
+vim.opt.termguicolors = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.api.nvim_create_autocmd("TextYankPost", {
