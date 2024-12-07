@@ -25,5 +25,10 @@ return {
 				},
 			},
 		})
+
+		-- C++
+		lspconfig.clangd.setup({
+			capabilities = capabilities,
+		})
 	end,
 }

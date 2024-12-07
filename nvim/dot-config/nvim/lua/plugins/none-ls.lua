@@ -6,8 +6,8 @@ return {
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 		null_ls.setup({
 			sources = {
-				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.completion.spell,
+				null_ls.builtins.formatting.stylua, -- lua
+				null_ls.builtins.formatting.clang_format, -- c
 			},
 			-- format on save
 			on_attach = function(client, bufnr)
