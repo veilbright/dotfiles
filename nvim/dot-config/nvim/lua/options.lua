@@ -5,8 +5,13 @@ vim.opt.relativenumber = true
 -- visual
 vim.opt.showmode = false
 vim.opt.list = true
-vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
-vim.api.nvim_create_autocmd('TextYankPost', { callback = function() vim.highlight.on_yank() end })
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+vim.opt.pumheight = 5 -- column height for completions
 
 -- indent/tab
 vim.opt.breakindent = true
@@ -27,4 +32,6 @@ vim.opt.updatetime = 500
 vim.opt.timeoutlen = 300
 
 -- clipboard
-vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
