@@ -46,12 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUS_BSP LT(_MOUSE, KC_BSPC)
 #define COM_ENT LT(_FUN, KC_ENT)
 
-// Shortcut Keycodes
-#define COPY LCTL(KC_C)
-#define PASTE LCTL(KC_V)
-#define CUT LCTL(KC_X)
-#define UNDO LCTL(KC_Z)
-
 enum layer_names {
   BSE, // base
   _COMMAND,
