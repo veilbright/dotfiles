@@ -51,13 +51,13 @@ const key_override_t *key_overrides[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BSE] = LAYOUT_split_3x6_3(
-    XXXXXXX,  KC_Q,     KC_Y,     KC_O,     KC_U,     KC_X,     /*|*/ KC_V,     KC_C,     KC_L,     KC_F,     KC_Z,     XXXXXXX,
+    XXXXXXX,  KC_Q,     KC_Y,     KC_O,     KC_U,     KC_X,     /*|*/ KC_V,     KC_C,     KC_L,     KC_F,     KC_Z,     QK_BOOT,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
     XXXXXXX,  LGUI_H,   LALT_I,   LCTL_E,   LSFT_A,   KC_DOT,   /*|*/ KC_G,     SHFT_T,   RCTL_R,   LALT_N,   RGUI_W,   XXXXXXX,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
     XXXXXXX,  KC_J,     KC_AMPR,  KC_SCLN,  KC_COMM,  KC_DQT,   /*|*/ KC_B,     KC_D,     KC_M,     KC_P,     KC_K,     XXXXXXX,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
-                                  KC_ESC,  KC_TAB,  KC_SPC,  /*|*/ KC_S,    KC_BSPC, KC_ENT
+                                  KC_ESC,  KC_SPC,  KC_TAB,  /*|*/ KC_BSPC,    KC_S, KC_ENT
   )
 };
 
