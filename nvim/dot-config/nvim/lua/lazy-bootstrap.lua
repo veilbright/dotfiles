@@ -20,5 +20,5 @@ require("lazy").setup({
 		{ import = "plugins" },
 	},
 	check = { enabled = true },
-	install = { colorscheme = { "default" } },
+	install = { colorscheme = { "seacarbon" } },
 })
