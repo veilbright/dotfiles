@@ -10,5 +10,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client.supports_method("textDocument/rename") then
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 		end
+		if client.supports_method("textDocument/formatting") then
+			vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
+		end
 	end,
 })
