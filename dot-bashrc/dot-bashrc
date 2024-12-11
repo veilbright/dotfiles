@@ -11,7 +11,7 @@ alias diff="diff --color=auto"
 alias stow='stow --dotfiles -v'
 alias vim='nvim'
 
-PS1='[\u@\h \W]\$ '
+PS1='[\W]\$ '
 EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
