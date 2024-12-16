@@ -30,5 +30,8 @@ return {
 		lspconfig.clangd.setup({
 			capabilities = capabilities,
 		})
+
+		-- CMake
+		lspconfig.cmake.setup({})
 	end,
 }
