@@ -17,8 +17,8 @@ vim.opt.pumheight = 5 -- column height for completions
 -- indent/tab
 vim.opt.breakindent = true
 vim.opt.tabstop = 4
--- vim.opt.softtabstop = 4
--- vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 -- undo
 vim.opt.undofile = true
@@ -32,8 +32,3 @@ vim.opt.updatetime = 500
 
 -- keybinds
 vim.opt.timeoutlen = 300
-
--- clipboard
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
