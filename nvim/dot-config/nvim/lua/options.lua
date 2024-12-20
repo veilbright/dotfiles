@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 vim.opt.pumheight = 5 -- column height for completions
+vim.opt.scrolloff = 10
 
 -- indent/tab
 vim.opt.breakindent = true
@@ -26,6 +27,7 @@ vim.opt.undofile = true
 -- search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.inccommand = 'split'
 
 -- swap
 vim.opt.updatetime = 500

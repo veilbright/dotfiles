@@ -16,12 +16,3 @@ EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"
-
-# Silence audio
-eval "$(wpctl set-volume @DEFAULT_AUDIO_SINK@ 0)"
-eval "$(wpctl set-mute @DEFAULT_AUDIO_SINK@ 1)"
-
-# Run uwsm to manage Hyprland
-if uwsm check may-start; then
-	exec uwsm start hyprland.desktop
-fi

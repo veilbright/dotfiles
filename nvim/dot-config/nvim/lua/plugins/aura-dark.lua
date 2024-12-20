@@ -11,7 +11,7 @@ return {
 			vim.api.nvim_set_hl(0, "LineNr", { fg = "#6d6d6d" })
 			vim.api.nvim_set_hl(0, "StatusLine", { fg = "#edecee", bg = "#29263c" })
 			vim.api.nvim_set_hl(0, "Operator", { fg = "#f694ff" })
-			-- vim.api.nvim_set_hl(0, "Visual", { fg = "#15141b", bg = "#a277ff" })
+			vim.api.nvim_set_hl(0, "Visual", { bg = "#433e62" })
 		end,
 	},
 }

@@ -19,15 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 // Left hand Beakl home row
-#define LGUI_H LGUI_T(KC_H)
-#define LALT_I LALT_T(KC_I)
-#define LCTL_E LCTL_T(KC_E)
 #define LSFT_A LSFT_T(KC_A)
+#define LCTL_E LCTL_T(KC_E)
+#define LALT_I LALT_T(KC_I)
+#define LGUI_H LGUI_T(KC_H)
 
 // Right hand Beakl home row
 #define SHFT_T RSFT_T(KC_T)
 #define RCTL_R RCTL_T(KC_R)
-#define LALT_N LALT_T(KC_N)
+#define LALT_N RALT_T(KC_N)
 #define RGUI_W RGUI_T(KC_W)
 
 // Thumb Layers
@@ -35,6 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NAV_SPC LT(NAVIGATION, KC_SPC)
 #define NUM_TAB LT(NUMBER, KC_TAB)
 #define SYM_S LT(SYMBOL, KC_S)
+
+// Left hand Symbol thumb row
+#define SHFT_TAB LSFT_T(KC_TAB)
+#define LCTL_SPC LCTL_T(KC_SPC)
+#define LALT_ESC LALT_T(KC_ESC)
 
 enum layers_names {
 	BASE,
@@ -46,44 +51,52 @@ enum layers_names {
 };
 
 // Base Layer Symbol Overrides
-const key_override_t dot_plus_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_PLUS);
-const key_override_t less_than_percent_override = ko_make_basic(MOD_MASK_SHIFT, KC_LT, KC_PERCENT);
-const key_override_t greater_than_dollar_override = ko_make_basic(MOD_MASK_SHIFT, KC_GT, KC_DOLLAR);
-const key_override_t comma_semicolon_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMMA, KC_SEMICOLON);
-const key_override_t equal_minus_override = ko_make_basic(MOD_MASK_SHIFT, KC_EQUAL, KC_MINUS);
+const key_override_t base_override1 = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_EXCLAIM);
+const key_override_t base_override2 = ko_make_basic(MOD_MASK_SHIFT, KC_SEMICOLON, KC_AT);
+const key_override_t base_override3 = ko_make_basic(MOD_MASK_SHIFT, KC_EQUAL, KC_GRAVE);
+const key_override_t base_override4 = ko_make_basic(MOD_MASK_SHIFT, KC_COMMA, KC_QUESTION);
+const key_override_t base_override5 = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);
 
 // Symbol Layer Symbol Overrides
-const key_override_t hash_space_override = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_SPACE);
-const key_override_t forward_back_slash_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_BACKSLASH);
-const key_override_t curly_braces_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE);
-const key_override_t pipe_ampersand_override = ko_make_basic(MOD_MASK_SHIFT, KC_PIPE, KC_AMPERSAND);
-const key_override_t brackets_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_BRACKET, KC_RIGHT_BRACKET);
-const key_override_t doublequote_quote_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOUBLE_QUOTE, KC_QUOTE);
-const key_override_t parentheses_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);
-const key_override_t asterisk_exclaim_override = ko_make_basic(MOD_MASK_SHIFT, KC_ASTERISK, KC_EXCLAIM);
-const key_override_t grave_space_override = ko_make_basic(MOD_MASK_SHIFT, KC_GRAVE, KC_SPACE);
-const key_override_t colon_tilde_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLON, KC_TILDE);
-const key_override_t circumflex_at_override = ko_make_basic(MOD_MASK_SHIFT, KC_CIRCUMFLEX, KC_AT);
-const key_override_t underscore_question_override = ko_make_basic(MOD_MASK_SHIFT, KC_UNDERSCORE, KC_QUESTION);
+const key_override_t symbol_override1 = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_HASH);
+const key_override_t symbol_override2 = ko_make_basic(MOD_MASK_SHIFT, KC_AMPERSAND, KC_AMPERSAND);
+const key_override_t symbol_override3 = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_BACKSLASH);
+const key_override_t symbol_override4 = ko_make_basic(MOD_MASK_SHIFT, KC_MINUS, KC_MINUS);
+const key_override_t symbol_override5 = ko_make_basic(MOD_MASK_SHIFT, KC_LT, KC_LT);
+const key_override_t symbol_override6 = ko_make_basic(MOD_MASK_SHIFT, KC_QUOTE, KC_QUOTE);
+const key_override_t symbol_override7 = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE);
+const key_override_t symbol_override8 = ko_make_basic(MOD_MASK_SHIFT, KC_COLON, KC_COLON);
+const key_override_t symbol_override9 = ko_make_basic(MOD_MASK_SHIFT, KC_DOUBLE_QUOTE, KC_DOUBLE_QUOTE);
+const key_override_t symbol_override10 = ko_make_basic(MOD_MASK_SHIFT, KC_GT, KC_GT);
+const key_override_t symbol_override11 = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_PLUS);
+const key_override_t symbol_override12 = ko_make_basic(MOD_MASK_SHIFT, KC_CIRCUMFLEX, KC_CIRCUMFLEX);
+const key_override_t symbol_override13 = ko_make_basic(MOD_MASK_SHIFT, KC_PERCENT, KC_PERCENT);
+const key_override_t symbol_override14 = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_BRACKET, KC_RIGHT_BRACKET);
+const key_override_t symbol_override15 = ko_make_basic(MOD_MASK_SHIFT, KC_TILDE, KC_TILDE);
+const key_override_t symbol_override16 = ko_make_basic(MOD_MASK_SHIFT, KC_DOLLAR, KC_DOLLAR);
 
 const key_override_t *key_overrides[] = {
-	&dot_plus_override,
-	&less_than_percent_override,
-	&greater_than_dollar_override,
-	&comma_semicolon_override,
-	&equal_minus_override,
-	&hash_space_override,
-	&forward_back_slash_override,
-	&curly_braces_override,
-	&pipe_ampersand_override,
-	&brackets_override,
-	&doublequote_quote_override,
-	&parentheses_override,
-	&asterisk_exclaim_override,
-	&grave_space_override,
-	&colon_tilde_override,
-	&circumflex_at_override,
-	&underscore_question_override
+	&base_override1,
+	&base_override2,
+	&base_override3,
+	&base_override4,
+	&base_override5,
+	&symbol_override1,
+	&symbol_override2,
+	&symbol_override3,
+	&symbol_override4,
+	&symbol_override5,
+	&symbol_override6,
+	&symbol_override7,
+	&symbol_override8,
+	&symbol_override9,
+	&symbol_override10,
+	&symbol_override11,
+	&symbol_override12,
+	&symbol_override13,
+	&symbol_override14,
+	&symbol_override15,
+	&symbol_override16
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -92,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
     XXXXXXX,  LGUI_H,   LALT_I,   LCTL_E,   LSFT_A,   KC_DOT,   /*|*/ KC_G,     SHFT_T,   RCTL_R,   LALT_N,   RGUI_W,   XXXXXXX,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
-    XXXXXXX,  KC_J,     KC_LT,    KC_GT,    KC_COMM,  KC_EQL,   /*|*/ KC_B,     KC_D,     KC_M,     KC_P,     KC_K,     XXXXXXX,
+    XXXXXXX,  KC_J,     KC_SCLN,  KC_EQL,   KC_COMM,  KC_LPRN,  /*|*/ KC_B,     KC_D,     KC_M,     KC_P,     KC_K,     XXXXXXX,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
                                   FUNC_ESC, NAV_SPC,  NUM_TAB,  /*|*/ KC_BSPC,  SYM_S,    KC_ENT
   ),
@@ -124,13 +137,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______,  _______,  _______,  /*|*/ _______,  KC_0,     _______
   ),
   [SYMBOL] = LAYOUT_split_3x6_3(
-    _______,  _______,  KC_HASH,  KC_SLSH,  KC_LCBR,  _______,  /*|*/ _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  KC_HASH,  KC_AMPR,  KC_SLSH,  _______,  /*|*/ _______,  KC_UNDS,  KC_PIPE,  KC_ASTR,  _______,  _______,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
-    _______,  KC_PIPE,  KC_LBRC,  KC_DQUO,  KC_LPRN,  KC_ASTR,  /*|*/ _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  KC_LT,    KC_MINS,  KC_QUOT,  KC_LCBR,  _______,  /*|*/ _______,  KC_COLN,  KC_DQUO,  KC_PLUS,  KC_GT,    _______,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
-    _______,  _______,  _______,  KC_GRV,   KC_COLN,  _______,  /*|*/ _______,  _______,  _______,  _______,  _______,  _______,
+    _______,  _______,  KC_CIRC,  KC_PERC,  KC_LBRC,  _______,  /*|*/ _______,  KC_TILD,  KC_DLR,   _______,  _______,  _______,
     /* - - - | - - - - | - - - - | - - - - | - - - - | - - - - -  |  - - - - - | - - - - | - - - - | - - - - | - - - - | - - - */
-                                  KC_CIRC,  _______,  KC_UNDS,  /*|*/ _______,  _______,  _______
+                                  LALT_ESC, LCTL_SPC, SHFT_TAB, /*|*/ _______,  _______,  _______
   ),
   [MOUSE] = LAYOUT_split_3x6_3(
     _______,  _______,  _______,  _______,  _______,  _______,  /*|*/ _______,  _______,  _______,  _______,  _______,  _______,

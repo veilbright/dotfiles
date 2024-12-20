@@ -3,35 +3,39 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp",
+		"saghen/blink.cmp",
 	},
-	config = function()
-		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-		-- Lua
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					runtime = {
-						version = _VERSION,
-					},
-					workspace = {
-						library = {
-							vim.env.VIMRUNTIME,
+	opts = {
+		servers = {
+			lua_ls = {
+				settings = {
+					Lua = {
+						runtime = {
+							version = _VERSION,
+						},
+						workspace = {
+							library = {
+								vim.env.VIMRUNTIME,
+							},
 						},
 					},
 				},
 			},
-		})
+			clangd = {
+				cmd = {
+					"clangd",
+					"--function-arg-placeholders",
+				},
+			},
+			cmake = {},
+		},
+	},
 
-		-- C++
-		lspconfig.clangd.setup({
-			capabilities = capabilities,
-		})
-
-		-- CMake
-		lspconfig.cmake.setup({})
+	config = function(_, opts)
+		local lspconfig = require("lspconfig")
+		for server, config in pairs(opts.servers) do
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+			lspconfig[server].setup(config)
+		end
 	end,
 }
