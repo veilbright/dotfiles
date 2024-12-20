@@ -16,3 +16,7 @@ EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"
+
+if uwsm check may-start; then
+    exec uwsm start hyprland.desktop
+fi

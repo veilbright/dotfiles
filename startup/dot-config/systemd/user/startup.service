@@ -1,8 +1,0 @@
-[Unit]
-Description=Startup Script
-
-[Service]
-ExecStart=%h/.startup.sh
-
-[Install]
-WantedBy=default.target
