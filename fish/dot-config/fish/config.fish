@@ -4,6 +4,8 @@ if status is-interactive
 	set -x SUDO_EDITOR /usr/bin/nvim
 	set -x VISUAL /usr/bin/nvim
 
+	set -x BROWSER /usr/bin/librewolf
+
 	# Aliases
 	abbr -a diff diff --color=auto
 	abbr -a grep grep --color=auto

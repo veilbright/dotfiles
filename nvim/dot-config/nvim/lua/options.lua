@@ -27,7 +27,7 @@ vim.opt.undofile = true
 -- search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- swap
 vim.opt.updatetime = 500

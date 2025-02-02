@@ -28,6 +28,27 @@ return {
 				},
 			},
 			cmake = {},
+			html = {
+				settings = {
+					html = {
+						format = {
+							templating = true,
+						},
+						hover = {
+							documentation = true,
+							references = true,
+						},
+						validate = {
+							scripts = true,
+							styles = true,
+						},
+					},
+				},
+				snippet = true,
+			},
+			cssls = {
+				snippet = true,
+			},
 		},
 	},
 
@@ -35,6 +56,9 @@ return {
 		local lspconfig = require("lspconfig")
 		for server, config in pairs(opts.servers) do
 			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+			if config.snippet == true then
+				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+			end
 			lspconfig[server].setup(config)
 		end
 	end,

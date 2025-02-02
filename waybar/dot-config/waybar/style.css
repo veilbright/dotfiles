@@ -6,7 +6,7 @@
 
 * {
     font-family: Iosevka Nerd Font;
-    font-size: 13px;
+    font-size: 12px;
     border: none;
     border-radius: 0;
 	color: @text;
@@ -14,14 +14,14 @@
 
 window#waybar {
     background: @background;
-    border-bottom: 1px;
+    border-bottom: 2px;
     color: @text;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 4px;
 }
 
 #workspaces button:hover {

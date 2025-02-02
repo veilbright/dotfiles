@@ -9,6 +9,5 @@ return {
 			nerd_font_variant = "mono",
 		},
 		signature = { enabled = true },
-		treesitter = { "lsp" },
 	},
 }
