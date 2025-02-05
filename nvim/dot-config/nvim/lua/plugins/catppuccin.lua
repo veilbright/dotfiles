@@ -6,6 +6,6 @@ return {
 	opts = {},
 	init = function()
 		vim.cmd.colorscheme("catppuccin")
-		vim.api.nvim_set_hl(0, "Normal", { bg = "#15141b" })
+		vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 	end,
 }
