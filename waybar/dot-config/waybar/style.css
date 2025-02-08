@@ -80,7 +80,7 @@ window#waybar {
 
 @keyframes blink {
     to {
-        color: @background;
+        color: @red;
     }
 }
 
@@ -90,7 +90,7 @@ window#waybar {
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: @red;
+    color: @background;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);

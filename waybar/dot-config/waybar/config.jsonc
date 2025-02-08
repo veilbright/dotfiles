@@ -105,9 +105,9 @@
     "battery": {
         "states": {
             // "good": 95,
-            "warning": 30,
-            "critical": 20,
-            "danger": 15
+            "warning": 25,
+            "critical": 15,
+            "danger": 10
         },
         "format": "{capacity}% {icon}",
         "format-alt": "{time} {icon}",
