@@ -61,9 +61,9 @@ zle -N down-line-or-beginning-search
 # Prompt
 setopt promptsubst
 
-PS1=$'%F{white}\u256D\u2500(%F{green}%~%f)${(r:$COLUMNS-$(echo $USER $PWD | wc -c)+($(echo $HOME | wc -c)-1)-6::\u2500:)}%f(%F{cyan}%n%f)\u2500'
+PS1=$'\u256D${(r:$COLUMNS-$(echo $USER ${PWD/$HOME/"~"} | wc -c)-5::\u2500:)}(%F{green}%~%f)\u2500(%F{cyan}%n%f)\u2500'
 PS1=$PS1$'%F{white}\u2570>%f '
-# RPS1=$' %F{green}%~%f %F{white}\u256F%f'
+RPS1=
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -79,6 +79,8 @@ alias ls='eza --git'
 alias grep='grep --color=auto'
 alias diff="diff --color=auto"
 alias stow='stow --dotfiles -v'
+
+export COLUMNS # for prompt script
 
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
