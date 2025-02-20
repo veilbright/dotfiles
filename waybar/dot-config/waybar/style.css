@@ -1,5 +1,6 @@
 @define-color background #000000;
-@define-color selection #333333;
+@define-color selection #eeeeee;
+@define-color selection-text #000000;
 @define-color text #eeeeee;
 @define-color red #ff6767;
 @define-color green #61ffca;
@@ -9,13 +10,12 @@
     font-size: 12px;
     border: none;
     border-radius: 0;
-	color: @text;
+    color: @text;
 }
 
 window#waybar {
     background: @background;
     border-bottom: 2px;
-    color: @text;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -32,6 +32,10 @@ window#waybar {
 
 #workspaces button.active {
     background: @selection;
+}
+
+#workspaces button.active * {
+    color: @selection-text;
 }
 
 #clock,

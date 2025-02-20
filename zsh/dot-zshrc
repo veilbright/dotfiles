@@ -61,8 +61,8 @@ zle -N down-line-or-beginning-search
 # Prompt
 setopt promptsubst
 
-PS1=$'\u256D${(r:$COLUMNS-$(echo $USER ${PWD/$HOME/"~"} | wc -c)-5::\u2500:)}(%F{green}%~%f)\u2500(%F{cyan}%n%f)\u2500'
-PS1=$PS1$'%F{white}\u2570>%f '
+PS1=$'\u2500${(r:$COLUMNS-$(echo $USER ${PWD/$HOME/"~"} | wc -c)-5::\u2500:)}(%F{green}%~%f)\u2500(%F{cyan}%n%f)\u2500'
+PS1=$PS1$'%F{cyan} > %f'
 RPS1=
 
 HISTFILE=~/.histfile
