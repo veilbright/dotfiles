@@ -11,8 +11,10 @@ return {
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua, -- lua
-				null_ls.builtins.formatting.clang_format, -- c
-				null_ls.builtins.formatting.gersemi, -- CMake formatting
+				null_ls.builtins.formatting.clang_format, -- C
+				null_ls.builtins.formatting.gersemi, -- CMake
+				null_ls.builtins.formatting.black, -- python
+				null_ls.builtins.formatting.phpcsfixer, -- PHP
 			},
 			-- format on save
 			on_attach = function(client, bufnr)

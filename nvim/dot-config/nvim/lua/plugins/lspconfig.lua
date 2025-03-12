@@ -49,9 +49,12 @@ return {
 			cssls = {
 				snippet = true,
 			},
+			pyright = {},
+			sqlls = {},
+			typos_lsp = {},
+			phpactor = {},
 		},
 	},
-
 	config = function(_, opts)
 		local lspconfig = require("lspconfig")
 		for server, config in pairs(opts.servers) do

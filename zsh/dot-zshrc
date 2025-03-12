@@ -60,20 +60,34 @@ zle -N down-line-or-beginning-search
 
 # Prompt
 setopt promptsubst
+LINE=$'\u2500'
 
-PS1=$'\u2500${(r:$COLUMNS-$(echo $USER ${PWD/$HOME/"~"} | wc -c)-5::\u2500:)}(%F{green}%~%f)\u2500(%F{cyan}%n%f)\u2500'
-PS1=$PS1$'%F{cyan} > %f'
+precmd() {
+	LINE_LEN=$(( $COLUMNS - $(echo "$USER" "${PWD/$HOME/"~"}" | wc -c) - 5 ))
+	if [ $LINE_LEN -lt 0 ]; then
+		LINE_LEN=0
+	fi
+}
+
+PS1=
+#PS1=$PS1$'%F{green}$VIRTUAL_ENV%f'
+PS1=$PS1$'(%F{green}%~%f)$LINE'                # pwd
+PS1=$PS1$'(%F{cyan}%n%f)$LINE'             # user
+PS1=$'$LINE${(r:$LINE_LEN::'$LINE':)}'$PS1 # line
+PS1=$PS1$'%F{cyan} > %f'                   # prompt
 RPS1=
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-EDITOR=/usr/bin/nvim
-SUDO_EDITOR=/usr/bin/nvim
-VISUAL=/usr/bin/nvim
+path+="$(go env GOPATH)/bin"
 
-BROWSER=/usr/bin/librewolf
+export EDITOR=/usr/bin/nvim
+export SUDO_EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
+
+export BROWSER=/usr/bin/librewolf
 
 alias ls='eza --git'
 alias grep='grep --color=auto'

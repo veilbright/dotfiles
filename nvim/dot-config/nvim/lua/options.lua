@@ -2,6 +2,9 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- clipboard
+vim.opt.clipboard = "unnamedplus"
+
 -- visual
 vim.opt.showmode = false
 vim.opt.termguicolors = true
