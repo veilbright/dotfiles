@@ -60,21 +60,24 @@ zle -N down-line-or-beginning-search
 
 # Prompt
 setopt promptsubst
-LINE=$'\u2500'
+PS1=$'$(~/projects/zsh-prompt/target/release/zsh-prompt)'
 
-precmd() {
-	LINE_LEN=$(( $COLUMNS - $(echo "$USER" "${PWD/$HOME/"~"}" | wc -c) - 5 ))
-	if [ $LINE_LEN -lt 0 ]; then
-		LINE_LEN=0
-	fi
-}
-
-PS1=
-#PS1=$PS1$'%F{green}$VIRTUAL_ENV%f'
-PS1=$PS1$'(%F{green}%~%f)$LINE'                # pwd
-PS1=$PS1$'(%F{cyan}%n%f)$LINE'             # user
-PS1=$'$LINE${(r:$LINE_LEN::'$LINE':)}'$PS1 # line
-PS1=$PS1$'%F{cyan} > %f'                   # prompt
+# OLD PROMPT
+# LINE=$'\u2500'
+#
+# # precmd() {
+# 	LINE_LEN=$(( $COLUMNS - $(echo "$USER" "${PWD/$HOME/"~"}" | wc -c) - 5 ))
+# 	if [ $LINE_LEN -lt 0 ]; then
+# 		LINE_LEN=0
+# 	fi
+# }
+#
+# PS1=
+# PS1=$PS1$'%F{green}$VIRTUAL_ENV%f'
+# PS1=$PS1$'(%F{green}%~%f)$LINE'                # pwd
+# PS1=$PS1$'(%F{cyan}%n%f)$LINE'             # user
+# PS1=$'$LINE${(r:$LINE_LEN::'$LINE':)}'$PS1 # line
+# PS1=$PS1$'%F{cyan} > %f'                   # prompt
 RPS1=
 
 HISTFILE=~/.histfile

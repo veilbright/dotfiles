@@ -33,7 +33,10 @@ client.unfocused "#000000" "#333333" "#eeeeee"
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 output DP-1 pos -320 -1080
+
 output eDP-1 pos 0 0 scale 1.5
+workspace 1 output eDP-1
+
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -71,7 +74,8 @@ input type:touchpad {
     bindsym $mod+SHIFT+c kill
     bindsym $mod+Return exec $menu
 
-    bindsym $mod+m move workspace to output up
+    bindsym $mod+m move window to output up
+    bindsym $mod+Shift+m move workspace to output up
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

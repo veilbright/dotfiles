@@ -53,6 +53,7 @@ return {
 			sqlls = {},
 			typos_lsp = {},
 			phpactor = {},
+			rust_analyzer = {},
 		},
 	},
 	config = function(_, opts)
