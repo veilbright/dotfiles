@@ -1,0 +1,24 @@
+// -*- mode: jsonc -*-
+{
+    //"layer": "top", // Waybar at top layer
+    "output": "DP-1",
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+    //"height": 24, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 0, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+    ],
+    // Modules configuration
+    "sway/workspaces": {
+        "all-outputs": false,
+        "format": "{value}",
+        "disable-scroll": true,
+    },
+}

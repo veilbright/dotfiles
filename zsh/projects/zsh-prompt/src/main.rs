@@ -1,31 +1,104 @@
-use std::env;
+use std::{env, vec};
 
-macro_rules! get_prompt_len {
-     ($($str:expr),*) => {
-             {
-             let len = 0;
-             $(
-                let len = len + get_prompt_len(&$str);
-             )*
-             len
-         }
-     };
- }
+struct PromptSection<'a> {
+    text: String,
+    visible: bool,
+    prefix: &'a String,
+    suffix: &'a String,
+    left_pad: usize,
+    right_pad: usize,
+    fill: &'a String,
+}
+
+impl<'a> PromptSection<'a> {
+    // meant to be used on strings without escapes or decoration
+    fn len(&self) -> usize {
+        if self.text.is_empty() {
+            return 0;
+        }
+        self.text.len() + 2 + self.right_pad + self.left_pad
+    }
+
+    // fill is fill char, pad is where to put fill char (-: left, +: right)
+    fn term_text(&self) -> String {
+        if !self.visible {
+            return String::new();
+        }
+        format!("{}({}{}{}){}",
+            self.fill.repeat(self.left_pad),
+            self.prefix,
+            self.text,
+            self.suffix,
+            self.fill.repeat(self.right_pad)
+        )
+    }
+}
+
+struct Prompt<'a> {
+    text_vec: Vec<PromptSection<'a>>,
+    columns: usize,
+    fill: &'a String
+}
+
+impl <'a> Prompt<'a> {
+    fn len(&self) -> usize {
+        let mut len = 0;
+        for section in &self.text_vec {
+            len += section.len();
+        }
+        len
+    }
+}
 
 fn main() {
-    let reset_escape = String::from("\x1B[0m");
-    let cyan_escape = String::from("\x1B[36m");
-    let green_escape = String::from("\x1B[32m");
+    let reset_escape: String;
+    let red_escape: String;
+    let green_escape: String;
+    let blue_escape: String;
+    let cyan_escape: String;
+    let line = String::from("\u{2500}");
 
+    if env::args().any(|arg| arg == "-z") { // zsh
+        reset_escape = String::from("%{\x1B[0m%}");
+        red_escape = String::from("%{\x1B[31m%}");
+        green_escape = String::from("%{\x1B[32m%}");
+        blue_escape = String::from("%{\x1B[34m%}");
+        cyan_escape = String::from("%{\x1B[36m%}");
+    }
+    else {
+        reset_escape = String::from("\x1B[0m");
+        red_escape = String::from("%{\x1B[31m%}");
+        green_escape = String::from("\x1B[32m");
+        blue_escape = String::from("\x1B[32m");
+        cyan_escape = String::from("\x1B[36m");
+    }
+
+    let mut prefix = line.clone();
+    let mut suffix = line.clone();
     let end_prompt = format!(" {cyan_escape}>{reset_escape} ");
 
     let line_len: usize;
 
     let columns: usize;
-    let mut user = get_env_var("USER");
     let home = get_env_var("HOME");
-    let mut pwd: String = get_env_var("PWD");
+    let mut python_venv = get_env_var("VIRTUAL_ENV_PROMPT");
+    let mut pwd = get_env_var("PWD");
+    let mut return_code = get_env_var("RETURN_CODE");
+    let mut user = get_env_var("USER");
 
+    let prompt_vec = vec![
+        PromptSection {
+            text: user,
+            visible: true,
+            prefix: &cyan_escape,
+            suffix: &reset_escape,
+            left_pad: 0,
+            right_pad: 1,
+            fill: &line,
+        }
+    ];
+
+    // available width
     columns = match get_env_var("COLUMNS").parse::<usize>() {
         Ok(n) => n,
         Err(_e) => 0,
@@ -36,50 +109,50 @@ fn main() {
         pwd.replace_range(0..home.len(), "~");
     }
 
+    // only show return code if it isn't 0
+    if return_code == "0" {
+        return_code = String::new();
+    }
+
     // prevent prompt overflow
-    if get_prompt_len!(pwd, user) > columns {
-        pwd = shorten_path(&pwd, Some(2));
-    }
-    if get_prompt_len!(pwd, user) > columns {
-        user = String::new();
-    }
-    if get_prompt_len!(pwd, user) > columns {
-        pwd = shorten_path(&pwd, Some(1));
-    }
-    if get_prompt_len!(pwd, user) > columns {
-        pwd = shorten_path(&pwd, None);
-    }
+    //if total_prompt_len!() > columns {
+    //    pwd = shorten_path(&pwd, 2);
+    //
+    //if total_prompt_len!() > columns {
+    //    user = String::new();
+    //
+    //if total_prompt_len!() > columns {
+    //    python_venv = String::new();
+    //
+    //if total_prompt_len!() > columns {
+    //    return_code = String::new();
+    //
+    //if total_prompt_len!() > columns {
+    //    pwd = shorten_path(&pwd, 1);
+    //
+    //if total_prompt_len!() > columns {
+    //    pwd = shorten_path(&pwd, 0);
+    //
+    //if total_prompt_len!() > columns {
+    //    suffix = String::new();
+    //
+    //if total_prompt_len!() > columns {
+    //    prefix = String::new();
+    //}}}}}}}}
 
-    line_len = if get_prompt_len!(pwd, user) > columns {0} else {columns - get_prompt_len!(pwd, user)};
+    line_len = columns;//if total_prompt_len!() > columns {0} else {columns - total_prompt_len!()};
 
-    // output prompt
-    print!("{}{}{}{}",
-        "\u{2500}".repeat(line_len),
-        to_prompt_str(&pwd, Some(&green_escape)),
-        to_prompt_str(&user, Some(&cyan_escape)),
-        end_prompt,
-    );
+    print!("{}", prompt_vec[0].prompt_text());
 }
 
 // returns a path string with n directories shortened to 1 letter
-fn shorten_path(path: &String, long_levels: Option<usize>) -> String {
+fn shorten_path(path: &String, long_levels: usize) -> String {
     let mut new_path_vec: Vec<String> = path.split('/').map(|s| s.to_string()).collect();
-    for i in 0..new_path_vec.len() - long_levels.unwrap_or_default() {
+    let short_levels = if long_levels < new_path_vec.len() {new_path_vec.len() - long_levels} else {new_path_vec.len()};
+    for i in 0..short_levels {
         new_path_vec[i] = new_path_vec[i].chars().next().unwrap_or_default().to_string();
     }
     new_path_vec.join("/")
-}
-
-fn to_prompt_str(str: &String, ansi_escape: Option<&String>) -> String {
-    if str.is_empty() {
-        return String::new();
-    }
-    if let Some(ansi) = ansi_escape {
-        format!("({ansi}{str}\x1B[0m)\u{2500}")
-    }
-    else {
-       format!("({str})\u{2500}")
-    }
 }
 
 fn get_env_var(name: &str) -> String {
@@ -87,32 +160,4 @@ fn get_env_var(name: &str) -> String {
         Ok(s) => s,
         Err(_e) => String::new(),
     }
-}
-
-// meant to be used on strings without escapes or decoration
-fn get_prompt_len(str: &String) -> usize {
-    if !str.is_empty() {
-        return str.len() + 3;
-    }
-    0
-}
-
-fn term_string_len(str: &String) -> usize {
-    let mut len = 0;
-    let mut term_escape = false;
-
-    for c in str.chars() {
-        if term_escape == false {
-            if c == '\x1B' { // enter term escape
-                term_escape = true;
-            }
-            else {
-                len += 1;
-            }
-        }
-        else if c == 'm' { // exit term escape
-            term_escape = false;
-        }
-    }
-    len
 }
