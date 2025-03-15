@@ -1,5 +1,6 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear hlsearch
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Quickfix" }) -- show quickfix
+vim.keymap.set({ "n", "v" }, "<leader>q", vim.diagnostic.setloclist, { desc = "Quickfix" }) -- show quickfix
+vim.keymap.set({ "n", "v" }, "<leader>b", "gg=G<C-o>", { desc = "Tab Format" }) -- show quickfix
 
 -- Switching focus between windows
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })

@@ -7,9 +7,9 @@
 
 * {
     font-family: IosevkaTerm Nerd Font;
-    font-size: 12px;
+    font-size: 14px;
     border: none;
-    padding: 0;
+    padding: 0px;
     margin-top: -1px;
     margin-bottom: -1px;
     border-radius: 0px;
@@ -57,7 +57,7 @@ window#waybar {
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
-    padding: 0 8px;
+    padding: 4px 8px;
     color: @text;
 }
 
