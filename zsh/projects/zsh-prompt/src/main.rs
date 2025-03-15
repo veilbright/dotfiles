@@ -1,52 +1,84 @@
 use std::{env, vec};
 
-struct PromptSection<'a> {
-    text: String,
-    visible: bool,
-    prefix: &'a String,
-    suffix: &'a String,
-    left_pad: usize,
-    right_pad: usize,
-    fill: &'a String,
-}
+mod prompt {
 
-impl<'a> PromptSection<'a> {
-    // meant to be used on strings without escapes or decoration
-    fn len(&self) -> usize {
-        if self.text.is_empty() {
-            return 0;
-        }
-        self.text.len() + 2 + self.right_pad + self.left_pad
+    #[derive(PartialEq)]
+    pub enum Align {
+        Left,
+        Center,
+        Right,
     }
 
-    // fill is fill char, pad is where to put fill char (-: left, +: right)
-    fn term_text(&self) -> String {
-        if !self.visible {
-            return String::new();
-        }
-        format!("{}({}{}{}){}",
-            self.fill.repeat(self.left_pad),
-            self.prefix,
-            self.text,
-            self.suffix,
-            self.fill.repeat(self.right_pad)
-        )
+    pub struct PromptSection<'a> {
+        pub text: String,
+        pub visible: bool,
+        pub prefix: &'a String,
+        pub suffix: &'a String,
+        pub align: Align,
+        pub left_pad: usize,
+        pub right_pad: usize,
     }
-}
 
-struct Prompt<'a> {
-    text_vec: Vec<PromptSection<'a>>,
-    columns: usize,
-    fill: &'a String
-}
-
-impl <'a> Prompt<'a> {
-    fn len(&self) -> usize {
-        let mut len = 0;
-        for section in &self.text_vec {
-            len += section.len();
+    impl<'a> PromptSection<'a> {
+        // meant to be used on strings without escapes or decoration
+        fn len(&self) -> usize {
+            if self.visible {
+                return self.text.len() + 2 + self.right_pad + self.left_pad;
+            }
+            0
         }
-        len
+    }
+
+    pub struct Prompt<'a> {
+        pub text_sections: Vec<PromptSection<'a>>, // assumes align order is correct
+        pub prompt_section: PromptSection<'a>,
+        pub columns: usize,
+        pub fill: &'a String
+    }
+
+    impl <'a> Prompt<'a> {
+        pub fn len(&self) -> usize {
+            let mut len = 0;
+            for section in &self.text_sections {
+                len += section.len();
+            }
+            len
+        }
+
+        pub fn term_text(&self) -> String {
+            let mut prompt = String::new();
+            let mut left_done = false;
+            let mut center_done = false;
+            let line_columns = self.columns - self.len();
+            let left_columns = (line_columns / 2) + (line_columns % 2);
+            let right_columns = line_columns / 2;
+
+            for section in &self.text_sections {
+                if !left_done && section.align != Align::Left {
+                    left_done = true;
+                    prompt += &self.fill.repeat(left_columns);
+                }
+                if !center_done && section.align != Align::Center {
+                    center_done = true;
+                    prompt += &self.fill.repeat(right_columns);
+                }
+                if section.visible {
+                    prompt += &format!("{}({}{}{}){}",
+                        self.fill.repeat(section.left_pad),
+                        section.prefix,
+                        section.text,
+                        section.suffix,
+                        self.fill.repeat(section.right_pad)
+                    );
+                }
+            }
+            prompt += &format!("{}{}{}", 
+                self.prompt_section.prefix,
+                self.prompt_section.text,
+                self.prompt_section.suffix,
+            );
+            prompt
+        }
     }
 }
 
@@ -73,76 +105,66 @@ fn main() {
         cyan_escape = String::from("\x1B[36m");
     }
 
-    let mut prefix = line.clone();
-    let mut suffix = line.clone();
-    let end_prompt = format!(" {cyan_escape}>{reset_escape} ");
-
-    let line_len: usize;
-
-    let columns: usize;
+    let columns_env: usize;
     let home = get_env_var("HOME");
-    let mut python_venv = get_env_var("VIRTUAL_ENV_PROMPT");
+    let python_venv = get_env_var("VIRTUAL_ENV_PROMPT");
+    let return_code = get_env_var("RETURN_CODE");
     let mut pwd = get_env_var("PWD");
-    let mut return_code = get_env_var("RETURN_CODE");
-    let mut user = get_env_var("USER");
-
-    let prompt_vec = vec![
-        PromptSection {
-            text: user,
-            visible: true,
-            prefix: &cyan_escape,
-            suffix: &reset_escape,
-            left_pad: 0,
-            right_pad: 1,
-            fill: &line,
-        }
-    ];
 
     // available width
-    columns = match get_env_var("COLUMNS").parse::<usize>() {
+    columns_env = match get_env_var("COLUMNS").parse::<usize>() {
         Ok(n) => n,
         Err(_e) => 0,
     };
 
-    // current directory (home is replace with ~)
     if pwd.starts_with(&home) {
         pwd.replace_range(0..home.len(), "~");
     }
 
-    // only show return code if it isn't 0
-    if return_code == "0" {
-        return_code = String::new();
-    }
+    let prompt = prompt::Prompt {
+        text_sections: vec![
+            prompt::PromptSection {
+                visible: return_code != "0",
+                text: return_code,
+                prefix: &red_escape,
+                suffix: &reset_escape,
+                align: prompt::Align::Left,
+                left_pad: 1,
+                right_pad: 0,
+            },
+            prompt::PromptSection {
+                text: pwd,
+                visible: true,
+                prefix: &green_escape,
+                suffix: &reset_escape,
+                align: prompt::Align::Right,
+                left_pad: 0,
+                right_pad: 1,
+            },
+            prompt::PromptSection {
+                text: get_env_var("USER"),
+                visible: true,
+                prefix: &cyan_escape,
+                suffix: &reset_escape,
+                align: prompt::Align::Right,
+                left_pad: 0,
+                right_pad: 1,
+            },
+        ],
+        prompt_section: prompt::PromptSection {
+            text: String::from(" > "),
+            visible: true,
+            prefix: &cyan_escape,
+            suffix: &reset_escape,
+            align: prompt::Align::Left,
+            left_pad: 0,
+            right_pad: 0,
+        },
+        columns: columns_env,
+        fill: &line,
+    };
 
-    // prevent prompt overflow
-    //if total_prompt_len!() > columns {
-    //    pwd = shorten_path(&pwd, 2);
-    //
-    //if total_prompt_len!() > columns {
-    //    user = String::new();
-    //
-    //if total_prompt_len!() > columns {
-    //    python_venv = String::new();
-    //
-    //if total_prompt_len!() > columns {
-    //    return_code = String::new();
-    //
-    //if total_prompt_len!() > columns {
-    //    pwd = shorten_path(&pwd, 1);
-    //
-    //if total_prompt_len!() > columns {
-    //    pwd = shorten_path(&pwd, 0);
-    //
-    //if total_prompt_len!() > columns {
-    //    suffix = String::new();
-    //
-    //if total_prompt_len!() > columns {
-    //    prefix = String::new();
-    //}}}}}}}}
-
-    line_len = columns;//if total_prompt_len!() > columns {0} else {columns - total_prompt_len!()};
-
-    print!("{}", prompt_vec[0].prompt_text());
+    print!("{}", prompt.term_text());
 }
 
 // returns a path string with n directories shortened to 1 letter

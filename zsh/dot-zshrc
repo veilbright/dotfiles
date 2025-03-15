@@ -62,8 +62,9 @@ zle -N down-line-or-beginning-search
 setopt promptsubst
 precmd() {
 	RETURN_CODE=$?
-	PS1='$(RUST_BACKTRACE=full ~/projects/zsh-prompt/target/release/zsh-prompt -z)'
+	PS1='$(~/projects/zsh-prompt/target/release/zsh-prompt -z)'
 }
+export RETURN_CODE=$?
 
 # OLD PROMPT
 # LINE=$'\u2500'
