@@ -62,7 +62,7 @@ zle -N down-line-or-beginning-search
 setopt promptsubst
 precmd() {
 	RETURN_CODE=$?
-	PS1='$(~/projects/zsh-prompt/target/release/zsh-prompt -s zsh -t pureline -i -a right)'
+	PS1='$(~/projects/unprompt/target/release/unprompt -s zsh -t pureline -i -a right -c right)'
 }
 export RETURN_CODE=$?
 
@@ -93,8 +93,6 @@ path+="$(go env GOPATH)/bin"
 export EDITOR=/usr/bin/nvim
 export SUDO_EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
-
-export BROWSER=/usr/bin/librewolf
 
 alias ls='eza --git'
 alias grep='grep --color=auto'

@@ -9,7 +9,9 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Clipboard management
-vim.keymap.set({ "n", "v" }, "d", '"1d', { desc = "Delete to reg1" })
+vim.keymap.set({ "n", "v" }, "d", '"1d', {})
+vim.keymap.set({ "n", "v" }, "x", '"1x', {})
+vim.keymap.set({ "n", "v" }, "c", '"1c', {})
 vim.keymap.set({ "n", "v" }, "<leader>p", function()
 	local reg1 = vim.fn.getreginfo("1")
 	local reg_plus = vim.fn.getreginfo("+")

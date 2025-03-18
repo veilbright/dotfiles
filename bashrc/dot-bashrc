@@ -1,6 +1,7 @@
 #
 # ~/.bashrc
 #
+export BROWSER='/usr/bin/librewolf'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -13,7 +14,6 @@ alias vim='nvim'
 
 PS1='[\[\033[32m\]\W\[\033[0m\]] \[\033[36m\]>\[\033[0m\] '
 export EDITOR='/usr/bin/nvim'
-export BROWSER='/usr/bin/librewolf'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"

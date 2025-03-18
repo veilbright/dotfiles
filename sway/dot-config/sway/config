@@ -4,8 +4,6 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-exec_always 'pkill waybar; waybar -c ~/.config/waybar/sway-config-primary.jsonc; waybar -c ~/.config/waybar/sway-config-secondary.jsonc'
-
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -19,6 +17,8 @@ set $right l
 set $term kitty
 set $menu fuzzel
 set $browser librewolf
+
+exec_always 'pkill waybar; waybar -c ~/.config/waybar/sway-config-primary.jsonc; waybar -c ~/.config/waybar/sway-config-secondary.jsonc'
 
 ### Appearance
 default_border pixel 1
@@ -37,6 +37,8 @@ output DP-1 pos -320 -1080
 output eDP-1 pos 0 0 scale 1.5
 workspace 1 output eDP-1
 
+focus output eDP-1
+exec $term
 
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -86,6 +88,7 @@ input type:touchpad {
 
     bindsym $mod+Shift+r reload
     bindsym $mod+o exec ~/.config/sway/lock-suspend.sh
+    bindsym $mod+p exec systemctl suspend
     bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
