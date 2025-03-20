@@ -3,7 +3,7 @@ return {
 
 	config = function()
 		local null_ls = require("null-ls")
-		vim.keymap.set("n", "<leader>f", function()
+		vim.keymap.set("n", "<leader>ff", function()
 			vim.lsp.buf.format({ async = false })
 		end, { desc = "Format" })
 

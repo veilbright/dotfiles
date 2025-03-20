@@ -62,7 +62,7 @@ zle -N down-line-or-beginning-search
 setopt promptsubst
 precmd() {
 	RETURN_CODE=$?
-	PS1='$(~/projects/unprompt/target/release/unprompt -s zsh -t pureline -i -a right -c right)'
+	PS1='$(~/projects/unprompt/target/release/unprompt -s zsh -t pureline -i -a right)'
 }
 export RETURN_CODE=$?
 

@@ -1,12 +1,15 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- clear hlsearch
-vim.keymap.set({ "n", "v" }, "<leader>q", vim.diagnostic.setloclist, { desc = "Quickfix" }) -- show quickfix
-vim.keymap.set({ "n", "v" }, "<leader>b", "gg=G<C-o>", { desc = "Tab Format" }) -- show quickfix
+vim.keymap.set({ "n", "v" }, "<leader>ft", "gg=G<C-o>", { desc = "Format tabs" })
 
 -- Switching focus between windows
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- Tab management
+vim.keymap.set({ "n", "v" }, "<leader>n", "gt", { desc = "Next tab" })
+vim.keymap.set({ "n", "v" }, "<leader>p", "gT", { desc = "Previous tab" })
 
 -- Clipboard management
 vim.keymap.set({ "n", "v" }, "d", '"1d', {})
@@ -24,3 +27,16 @@ vim.keymap.set({ "v", "n" }, "<leader>s", function()
 	vim.api.nvim_feedkeys("*", "v", true)
 	vim.api.nvim_feedkeys(":%s//", "n", true)
 end, { desc = "Find and replace" })
+
+-- Toggle Quickfix
+vim.keymap.set({ "n", "v" }, "<leader>q", function()
+	vim.print(vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")))
+	if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist")) == 0 then
+		vim.cmd("lclose")
+		-- needs to be 2nd, the loclist is a quickfix
+	elseif vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")) == 0 then
+		vim.cmd("cclose")
+	else
+		vim.diagnostic.setloclist()
+	end
+end, { desc = "Quickfix" })
