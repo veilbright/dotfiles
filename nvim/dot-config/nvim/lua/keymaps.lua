@@ -11,10 +11,29 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set({ "n", "v" }, "<leader>n", "gt", { desc = "Next tab" })
 vim.keymap.set({ "n", "v" }, "<leader>p", "gT", { desc = "Previous tab" })
 
+-- Quickfix navigation
+vim.keymap.set({ "n", "v" }, "<leader>cn", function()
+	if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist")) == 0 then
+		vim.cmd("lnext")
+		-- needs to be 2nd, the loclist is a quickfix
+	elseif vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")) == 0 then
+		vim.cmd("cnext")
+	end
+end, { desc = "Next quickfix" })
+vim.keymap.set({ "n", "v" }, "<leader>cp", function()
+	if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist")) == 0 then
+		vim.cmd("lprevious")
+		-- needs to be 2nd, the loclist is a quickfix
+	elseif vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")) == 0 then
+		vim.cmd("cprevious")
+	end
+end, { desc = "Previous quickfix" })
+
 -- Clipboard management
 vim.keymap.set({ "n", "v" }, "d", '"1d', {})
 vim.keymap.set({ "n", "v" }, "x", '"1x', {})
 vim.keymap.set({ "n", "v" }, "c", '"1c', {})
+vim.keymap.set({ "n", "v" }, "s", '"1s', {})
 vim.keymap.set({ "n", "v" }, "<leader>p", function()
 	local reg1 = vim.fn.getreginfo("1")
 	local reg_plus = vim.fn.getreginfo("+")
@@ -30,7 +49,6 @@ end, { desc = "Find and replace" })
 
 -- Toggle Quickfix
 vim.keymap.set({ "n", "v" }, "<leader>q", function()
-	vim.print(vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.quickfix")))
 	if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), "v:val.loclist")) == 0 then
 		vim.cmd("lclose")
 		-- needs to be 2nd, the loclist is a quickfix

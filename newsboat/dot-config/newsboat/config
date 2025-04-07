@@ -1,0 +1,8 @@
+pager "less %f"
+refresh-on-startup yes
+color listfocus black white
+color listfocus_unread black white bold
+color title cyan default
+color info green default
+bind k everywhere up
+bind j everywhere down

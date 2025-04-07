@@ -15,6 +15,7 @@ return {
 				null_ls.builtins.formatting.gersemi, -- CMake
 				null_ls.builtins.formatting.black, -- python
 				null_ls.builtins.formatting.phpcsfixer, -- PHP
+				null_ls.builtins.formatting.sql_formatter, -- SQL
 			},
 			-- format on save
 			on_attach = function(client, bufnr)

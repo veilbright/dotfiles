@@ -76,6 +76,9 @@ input type:touchpad {
     bindsym $mod+SHIFT+c kill
     bindsym $mod+Return exec $menu
 
+    # Kitty sessions using fuzzel
+    bindsym $mod+SHIFT+q exec kitty --session sessions/$(ls ~/.config/kitty/sessions | awk '{print $0}' | fuzzel -d)
+
     bindsym $mod+m move window to output up
     bindsym $mod+Shift+m move workspace to output up
 
