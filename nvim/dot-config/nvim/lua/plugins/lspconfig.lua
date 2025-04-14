@@ -39,6 +39,11 @@ return {
 						},
 					},
 				},
+				filetypes = {
+					"html",
+					"templ",
+					"tpl",
+				},
 				snippet = true,
 			},
 			cssls = {
@@ -48,6 +53,9 @@ return {
 			sqlls = {},
 			typos_lsp = {},
 			phpactor = {},
+			gopls = {},
+			eslint = {},
+			ts_ls = {},
 		},
 	},
 	config = function(_, opts)

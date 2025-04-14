@@ -79,6 +79,9 @@ input type:touchpad {
     # Kitty sessions using fuzzel
     bindsym $mod+SHIFT+q exec kitty --session sessions/$(ls ~/.config/kitty/sessions | awk '{print $0}' | fuzzel -d)
 
+    # Wine using fuzzel
+    bindsym $mod+SHIFT+w exec /home/veil/.config/sway/wine/run.sh
+
     bindsym $mod+m move window to output up
     bindsym $mod+Shift+m move workspace to output up
 
