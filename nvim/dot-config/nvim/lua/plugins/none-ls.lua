@@ -15,7 +15,7 @@ return {
 				null_ls.builtins.formatting.gersemi, -- CMake
 				null_ls.builtins.formatting.black, -- python
 				null_ls.builtins.formatting.phpcsfixer, -- PHP
-				null_ls.builtins.formatting.sql_formatter, -- SQL
+				-- null_ls.builtins.formatting.sql_formatter, -- SQL
 				null_ls.builtins.formatting.gofmt, -- Go
 				null_ls.builtins.formatting.prettierd, -- JavaScript, HTML, CSS
 			},

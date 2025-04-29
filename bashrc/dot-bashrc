@@ -3,6 +3,12 @@
 #
 export BROWSER='/usr/bin/librewolf'
 
+export EDITOR=/usr/bin/nvim
+export SUDO_EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
+
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -13,7 +19,6 @@ alias stow='stow --dotfiles -v'
 alias vim='nvim'
 
 PS1='[\[\033[32m\]\W\[\033[0m\]] \[\033[36m\]>\[\033[0m\] '
-export EDITOR='/usr/bin/nvim'
 
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"

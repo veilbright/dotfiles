@@ -56,6 +56,8 @@ return {
 			gopls = {},
 			eslint = {},
 			ts_ls = {},
+			omnisharp = {},
+			arduino_language_server = {},
 		},
 	},
 	config = function(_, opts)

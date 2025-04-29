@@ -1,3 +1,5 @@
+fpath=($HOME/.config/zsh/completion $fpath)
+
 zstyle ':completion:*' completer _complete _ignored
 zstyle :compinstall filename '/home/veil/.zshrc'
 zstyle ':completion:*' menu select
@@ -58,32 +60,6 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
-# Prompt
-setopt promptsubst
-precmd() {
-	RETURN_CODE=$?
-	PS1='$(~/projects/unprompt/target/release/unprompt -s zsh -t pureline -i -a right)'
-}
-export RETURN_CODE=$?
-
-# OLD PROMPT
-# LINE=$'\u2500'
-#
-# # precmd() {
-# 	LINE_LEN=$(( $COLUMNS - $(echo "$USER" "${PWD/$HOME/"~"}" | wc -c) - 5 ))
-# 	if [ $LINE_LEN -lt 0 ]; then
-# 		LINE_LEN=0
-# 	fi
-# }
-#
-# PS1=
-# PS1=$PS1$'%F{green}$VIRTUAL_ENV%f'
-# PS1=$PS1$'(%F{green}%~%f)$LINE'                # pwd
-# PS1=$PS1$'(%F{cyan}%n%f)$LINE'             # user
-# PS1=$'$LINE${(r:$LINE_LEN::'$LINE':)}'$PS1 # line
-# PS1=$PS1$'%F{cyan} > %f'                   # prompt
-RPS1=
-
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -94,12 +70,17 @@ export EDITOR=/usr/bin/nvim
 export SUDO_EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
 
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
 alias ls='eza --git'
 alias grep='grep --color=auto'
 alias diff="diff --color=auto"
 alias stow='stow --dotfiles -v'
+alias vim='nvim'
+alias vi='nvim'
 
 export COLUMNS # for prompt script
 
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
 source <(fzf --zsh)
